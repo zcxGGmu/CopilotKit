@@ -101,10 +101,11 @@ export function Canvas() {
   const state = (agent.state ?? {}) as Partial<CanvasState>;
 
   // Seed initial state so the canvas shows content immediately.
-  // This runs once on mount if the state is empty.
+  // Reruns when agent changes to handle provisional→real agent swaps.
   useEffect(() => {
     if (!agent.state?.title) {
       agent.setState({
+        ...agent.state,
         title: "My Canvas",
         items: [
           { id: "1", label: "First task", done: false },
@@ -112,8 +113,7 @@ export function Canvas() {
         ],
       } satisfies Partial<CanvasState>);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [agent, agent.state?.title]);
 
   return (
     <main className="canvas">
