@@ -14,8 +14,81 @@ your tree and render it however you like.
 `useAgent` works in any component under `<CopilotKit>`. It doesn't have to be
 near the chat. Call it in your main-view component, read `agent.state`, and render:
 
+### Define your backend state schema
+
+First, ensure your agent's backend defines the state shape. Here's how to define
+the `CanvasState` type on the backend (using LangGraph as an example):
+
+<Tabs groupId="backend_framework" items={["LangGraph Python", "LangGraph TypeScript"]} persist>
+  <Tab value="LangGraph Python">
+    ```python title="agent.py"
+    from copilotkit import CopilotKitState
+
+    class CanvasState(CopilotKitState):
+        title: str = ""
+        items: list[dict] = []
+
+    # In your node, you can set initial values:
+    def canvas_node(state: CanvasState, config: RunnableConfig):
+        # Set defaults if not already set
+        title = state.get("title") or "Untitled Canvas"
+        items = state.get("items") or []
+        
+        # ... rest of your node logic
+        
+        return {
+            "title": title,
+            "items": items,
+            # ... other state fields
+        }
+    ```
+  </Tab>
+  <Tab value="LangGraph TypeScript">
+    ```ts title="agent.ts"
+    import { StateSchema } from "@langchain/langgraph";
+    import { CopilotKitStateSchema } from "@copilotkit/sdk-js/langgraph";
+    import { z } from "zod";
+
+    export const CanvasStateSchema = new StateSchema({
+        title: z.string().default(""),
+        items: z.array(z.object({
+          id: z.string(),
+          label: z.string(),
+          done: z.boolean(),
+        })).default([]),
+        ...CopilotKitStateSchema.fields,
+    });
+    
+    export type CanvasState = typeof CanvasStateSchema.State;
+    
+    // In your node, you can set initial values:
+    async function canvasNode(state: CanvasState, config: RunnableConfig) {
+      const title = state.title || "Untitled Canvas";
+      const items = state.items || [];
+      
+      // ... rest of your node logic
+      
+      return {
+        title,
+        items,
+        // ... other state fields
+      };
+    }
+    ```
+  </Tab>
+</Tabs>
+
+<Callout type="warning">
+  Default values in backend state schemas are **not automatically read at runtime**
+  in some frameworks. You'll need to explicitly initialize state either on the backend
+  (as shown above) or on the frontend (shown below).
+</Callout>
+
+### Render the state in your UI
+
 ```tsx title="components/Canvas.tsx"
 import { useAgent } from "@copilotkit/react-core/v2";
+import { useEffect } from "react";
 
 type CanvasState = {
   title: string;
@@ -26,6 +99,21 @@ export function Canvas() {
   // No agentId means the "default" agent. Pass { agentId } to target another.
   const { agent } = useAgent();
   const state = (agent.state ?? {}) as Partial<CanvasState>;
+
+  // Seed initial state so the canvas shows content immediately.
+  // This runs once on mount if the state is empty.
+  useEffect(() => {
+    if (!agent.state?.title) {
+      agent.setState({
+        title: "My Canvas",
+        items: [
+          { id: "1", label: "First task", done: false },
+          { id: "2", label: "Second task", done: true },
+        ],
+      } satisfies Partial<CanvasState>);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <main className="canvas">
@@ -46,6 +134,26 @@ Every time the agent mutates its state, whether from a tool call, node
 transition, or [streamed update](/shared-state/streaming), `useAgent` re-renders this component
 with the new values. The chat can be in a sidebar, a popup, or absent entirely;
 your canvas updates the same way.
+
+### When to initialize state
+
+You have two options for ensuring your state has initial values:
+
+1. **Frontend initialization** (shown above): Use `useEffect` to seed initial state
+   with `agent.setState()` on component mount. This is useful when:
+   - You want to show immediate content before the agent runs
+   - Your initial state depends on client-side data (user preferences, URL params)
+   - You're building a demo or prototype
+
+2. **Backend initialization**: Set state values in your agent's first node or
+   entry point. This is better when:
+   - Initial state comes from a database or API
+   - You want consistent defaults across all clients
+   - The agent should control the initial state shape
+
+In either case, the defensive `??` fallbacks in your render code are still
+recommended—they guard against partial state during streaming updates or if
+initialization hasn't completed yet.
 
 ## Put it anywhere in your layout
 
@@ -74,7 +182,6 @@ export default function Page() {
 <Callout type="info">
 `<Canvas>` and `<CopilotSidebar>` both call `useAgent()` for the same `agentId`,
 so they share one agent instance and one state object. There's nothing chat-specific
-about reading `agent.state`. The sidebar is not special.
 about reading `agent.state`. The sidebar is not special.
 </Callout>
 
