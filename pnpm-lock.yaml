@@ -2366,6 +2366,27 @@ importers:
       '@copilotkit/channels-core':
         specifier: workspace:*
         version: link:../channels-core
+      '@copilotkit/channels-discord':
+        specifier: workspace:*
+        version: link:../channels-discord
+      '@copilotkit/channels-intelligence':
+        specifier: workspace:*
+        version: link:../channels-intelligence
+      '@copilotkit/channels-slack':
+        specifier: workspace:*
+        version: link:../channels-slack
+      '@copilotkit/channels-teams':
+        specifier: workspace:*
+        version: link:../channels-teams
+      '@copilotkit/channels-telegram':
+        specifier: workspace:*
+        version: link:../channels-telegram
+      '@copilotkit/channels-ui':
+        specifier: workspace:*
+        version: link:../channels-ui
+      '@copilotkit/channels-whatsapp':
+        specifier: workspace:*
+        version: link:../channels-whatsapp
     devDependencies:
       '@copilotkit/typescript-config':
         specifier: workspace:^

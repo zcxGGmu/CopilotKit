@@ -79,6 +79,10 @@ const textNode = (value: string): BotNode[] => [
 
 const INTERRUPTED_SUFFIX = "\n_(interrupted)_";
 
+/**
+ * Supported configuration for the Intelligence-delivered Channels adapter.
+ * Exposed to consumers through `@copilotkit/channels/intelligence`.
+ */
 export interface IntelligenceAdapterOptions {
   /**
    * Inbound transport. Omit to use the default {@link HttpDeliverySource}
@@ -810,9 +814,11 @@ export class IntelligenceAdapter implements PlatformAdapter {
 }
 
 /**
- * @internal Construct the Channel bridge adapter. Production callers (the
- * runtime) inject the Realtime Gateway + Connector Outbox transports; tests and
- * standalone runs inject in-memory ones. Must be the only adapter on a bot (V1).
+ * Construct the Intelligence-delivered Channels adapter.
+ *
+ * Use this factory through `@copilotkit/channels/intelligence`, the supported
+ * consumer surface. Runtime, gateway, and bootstrap APIs in this implementation
+ * package remain internal integration APIs. Must be the only adapter on a bot (V1).
  */
 export function intelligenceAdapter(
   opts: IntelligenceAdapterOptions = {},
