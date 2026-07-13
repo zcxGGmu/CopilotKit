@@ -1,4 +1,4 @@
-import type { Bot } from "@copilotkit/channels";
+import type { Bot } from "@copilotkit/channels-core";
 import {
   startChannels,
   assertValidChannelNames,

@@ -1,4 +1,4 @@
-import type { BotTool } from "@copilotkit/channels";
+import type { BotTool } from "@copilotkit/channels-core";
 
 /**
  * WhatsApp ships no built-in tools in v1. Unlike Slack (which provides

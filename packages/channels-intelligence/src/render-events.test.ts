@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import type { ReplyTarget } from "@copilotkit/channels";
+import type { ReplyTarget } from "@copilotkit/channels-core";
 import { intelligenceAdapter } from "./intelligence-adapter.js";
 import {
   InMemoryDeliverySource,

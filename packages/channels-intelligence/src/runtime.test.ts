@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { createBot, FakeAgent } from "@copilotkit/channels";
+import { createBot, FakeAgent } from "@copilotkit/channels-core";
 import { Section } from "@copilotkit/channels-ui";
 import {
   InMemoryDeliverySource,

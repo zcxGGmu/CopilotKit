@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { defineBotTool } from "@copilotkit/channels";
-import type { BotTool } from "@copilotkit/channels";
+import { defineBotTool } from "@copilotkit/channels-core";
+import type { BotTool } from "@copilotkit/channels-core";
 
 export const lookupDiscordUserTool: BotTool = defineBotTool({
   name: "lookup_discord_user",

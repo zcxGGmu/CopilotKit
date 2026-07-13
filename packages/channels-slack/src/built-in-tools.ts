@@ -5,7 +5,8 @@
  * `createBot`.
  */
 import { z } from "zod";
-import { defineBotTool, type BotTool } from "@copilotkit/channels";
+import { defineBotTool } from "@copilotkit/channels-core";
+import type { BotTool } from "@copilotkit/channels-core";
 
 const lookupSchema = z.object({
   query: z

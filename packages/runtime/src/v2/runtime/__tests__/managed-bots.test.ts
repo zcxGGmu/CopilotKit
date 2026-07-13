@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { CopilotRuntime, CopilotIntelligenceRuntime } from "../core/runtime";
 import { CopilotKitIntelligence } from "../intelligence-platform";
-import { createBot } from "@copilotkit/channels";
+import { createBot } from "@copilotkit/channels-core";
 
 const intelligence = () =>
   new CopilotKitIntelligence({
