@@ -13,11 +13,11 @@
  * it wants shown; the Slack formatting lives here. For a single issue (or
  * right after creating one) prefer `issue_card`, which shows a full grid.
  *
- * Authored with the `@copilotkit/channels-ui` JSX vocabulary.
+ * Authored with the `@copilotkit/channels` JSX vocabulary.
  */
 import { z } from "zod";
-import { Context, Header, Message, Section } from "@copilotkit/channels-ui";
-import type { BotNode } from "@copilotkit/channels-ui";
+import { Context, Header, Message, Section } from "@copilotkit/channels";
+import type { BotNode } from "@copilotkit/channels";
 import { accentForIssues, stateGlyph } from "./_status.js";
 
 const issueSchema = z.object({

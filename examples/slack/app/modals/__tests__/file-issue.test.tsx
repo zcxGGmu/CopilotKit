@@ -1,12 +1,12 @@
 import { describe, it, expect, vi } from "vitest";
-import { renderToIR } from "@copilotkit/channels-ui";
+import { renderToIR } from "@copilotkit/channels";
 import {
   FileIssueModal,
   fileIssueSubmit,
   issueFromValues,
   FILE_ISSUE_CALLBACK,
 } from "../file-issue.js";
-import type { BotNode } from "@copilotkit/channels-ui";
+import type { BotNode } from "@copilotkit/channels";
 
 function tags(node: BotNode | unknown, acc: string[] = []): string[] {
   if (!node || typeof node !== "object") return acc;

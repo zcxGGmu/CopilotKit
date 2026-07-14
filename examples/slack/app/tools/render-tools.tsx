@@ -1,7 +1,7 @@
 /**
  * Render-tools — the agent-facing wrappers that turn the JSX render
  * components into `BotTool`s. The agent calls `issue_card` / `issue_list` /
- * `page_list`; each handler renders the finished `@copilotkit/channels-ui`
+ * `page_list`; each handler renders the finished `@copilotkit/channels`
  * component (`<IssueCard … />` etc.) and posts it to the thread via
  * `thread.post`.
  */

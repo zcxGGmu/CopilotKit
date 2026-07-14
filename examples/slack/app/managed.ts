@@ -27,7 +27,7 @@ import {
   defaultSlackTools,
   defaultSlackContext,
   SanitizingHttpAgent,
-} from "@copilotkit/channels-slack";
+} from "@copilotkit/channels/slack";
 import { startChannelsOverRealtimeGateway } from "@copilotkit/channels-intelligence";
 import { appTools } from "./tools/index.js";
 import { appContext } from "./context/app-context.js";

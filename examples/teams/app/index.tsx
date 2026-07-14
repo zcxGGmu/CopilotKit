@@ -1,5 +1,5 @@
 /**
- * Microsoft Teams demo bot for `@copilotkit/channels-teams`.
+ * Microsoft Teams demo bot for `@copilotkit/channels/teams`.
  *
  * Every message runs a real CopilotKit `BuiltInAgent`. Replies stream by
  * message-edit, and the agent renders **Adaptive Cards automatically** by
@@ -16,7 +16,7 @@
 import "dotenv/config";
 import { createServer } from "node:http";
 import { createBot, defineBotTool } from "@copilotkit/channels";
-import { teams, SanitizingHttpAgent } from "@copilotkit/channels-teams";
+import { teams, SanitizingHttpAgent } from "@copilotkit/channels/teams";
 import { BuiltInAgent, CopilotSseRuntime } from "@copilotkit/runtime/v2";
 import { createCopilotNodeListener } from "@copilotkit/runtime/v2/node";
 import { z } from "zod";
@@ -31,7 +31,7 @@ import {
   Table,
   Row,
   Cell,
-} from "@copilotkit/channels-ui";
+} from "@copilotkit/channels";
 
 // This demo drives a real agent, so an LLM key is required. Fail fast with a
 // clear message rather than booting a bot that errors on the first message.

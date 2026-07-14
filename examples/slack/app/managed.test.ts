@@ -19,7 +19,7 @@ const fakes = vi.hoisted(() => {
 vi.mock("@copilotkit/channels", () => ({
   createBot: vi.fn(() => fakes.bot),
 }));
-vi.mock("@copilotkit/channels-slack", () => ({
+vi.mock("@copilotkit/channels/slack", () => ({
   defaultSlackTools: [],
   defaultSlackContext: [],
   SanitizingHttpAgent: function SanitizingHttpAgent() {},

@@ -6,7 +6,7 @@
  * The agent searches Notion via MCP and passes the pages it wants to
  * surface; the Slack formatting lives here.
  *
- * Authored with the `@copilotkit/channels-ui` JSX vocabulary.
+ * Authored with the `@copilotkit/channels` JSX vocabulary.
  */
 import { z } from "zod";
 import {
@@ -15,8 +15,8 @@ import {
   Header,
   Message,
   Section,
-} from "@copilotkit/channels-ui";
-import type { BotNode } from "@copilotkit/channels-ui";
+} from "@copilotkit/channels";
+import type { BotNode } from "@copilotkit/channels";
 import { ACCENT } from "./_status.js";
 
 const pageSchema = z.object({
